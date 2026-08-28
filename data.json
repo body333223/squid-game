@@ -24,88 +24,58 @@
       "id": "shisha",
       "name": "شيشة فاخرة",
       "icon": "💨"
+    },
+    {
+      "id": "noodles",
+      "name": "اندومي",
+      "icon": "🍜"
+    },
+    {
+      "id": "wifi",
+      "name": "Wi fi",
+      "icon": "🛜"
     }
   ],
   "menu": [
     {
       "id": 1,
-      "name": "شاي سكوود مكرر",
+      "name": "شاي",
       "cat": "hot",
-      "price": 20,
-      "desc": "شاي أحمر على البخار – نعناع / قرنفل / حبق",
+      "price": 25,
+      "desc": "شاي أحمر  – نعناع",
       "icon": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300&auto=format&fit=crop&q=70"
     },
     {
       "id": 2,
-      "name": "قهوة تركي محوجة",
+      "name": "قهوة تركي",
       "cat": "coffee",
-      "price": 25,
-      "desc": "بن برازيلي ممتاز بالهيل والزعفران على الرمالة",
+      "price": 30,
+      "desc": "بن برازيلي ممتاز",
       "icon": "https://images.unsplash.com/photo-1497515114629-f71d768fd07c?w=300&auto=format&fit=crop&q=70"
     },
     {
-      "id": 3,
-      "name": "إسبريسو دوبل",
-      "cat": "coffee",
-      "price": 30,
-      "desc": "شوت إسبريسو نقي وقوي برغوة غنية",
-      "icon": "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=300&auto=format&fit=crop&q=70"
-    },
-    {
-      "id": 4,
-      "name": "عصير مانجو فريش",
-      "cat": "fresh",
-      "price": 40,
-      "desc": "قطع مانجو طبيعية 100% بدون إضافات",
-      "icon": "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=300&auto=format&fit=crop&q=70"
-    },
-    {
-      "id": 5,
-      "name": "ليمون نعناع مثلج",
-      "cat": "fresh",
-      "price": 30,
-      "desc": "عصير ليمون طبيعي مع نعناع طازج وثلج",
-      "icon": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300&auto=format&fit=crop&q=70"
-    },
-    {
-      "id": 6,
-      "name": "آيس سبانش لاتيه",
-      "cat": "cold",
-      "price": 50,
-      "desc": "دبل شوت إسبريسو مع حليب مكثف وثلج",
-      "icon": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=300&auto=format&fit=crop&q=70"
-    },
-    {
-      "id": 7,
-      "name": "موهيتو توت وبلو أوشن",
-      "cat": "cold",
-      "price": 45,
-      "desc": "سفن أب مع سيرب التوت الأزرق ونعناع وليمون",
-      "icon": "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=300&auto=format&fit=crop&q=70"
-    },
-    {
       "id": 8,
-      "name": "شيشة تفاح فاخر",
+      "name": "شيشة مانجو",
       "cat": "shisha",
-      "price": 35,
-      "desc": "تفاح بلدي بنكهة غنية على الفحم الطبيعي",
-      "icon": "https://images.unsplash.com/photo-1505080259218-1d1e9e7ba9a5?w=300&auto=format&fit=crop&q=70"
+      "price": 50,
+      "desc": "شيشة فواكة بنكهة غنية على الفحم الطبيعي",
+      "icon": "https://share.google/4wodRBaXYyzjB5Eme"
     },
     {
       "id": 9,
-      "name": "شيشة قص علك ونعناع",
+      "name": "شيشة قص",
       "cat": "shisha",
-      "price": 35,
-      "desc": "مزيج منعش من العلكة والنعناع البارد",
-      "icon": "https://images.unsplash.com/photo-1505080259218-1d1e9e7ba9a5?w=300&auto=format&fit=crop&q=70"
+      "price": 20,
+      "desc": "",
+      "icon": "https://share.google/4wodRBaXYyzjB5Eme"
     },
     {
       "id": 10,
-      "name": "شيشة خوخ توست",
+      "name": "شيشة خوخ",
       "cat": "shisha",
-      "price": 40,
+      "price": 50,
       "desc": "خوخ ممتاز بنكهة قوية ومميزة",
-      "icon": "https://images.unsplash.com/photo-1505080259218-1d1e9e7ba9a5?w=300&auto=format&fit=crop&q=70"
+      "icon": "https://share.google/4wodRBaXYyzjB5Eme"
     },
     {
       "id": 11,
@@ -114,6 +84,46 @@
       "price": 40,
       "desc": "عنب فاخر ممزوج بالتوت البري",
       "icon": "https://images.unsplash.com/photo-1505080259218-1d1e9e7ba9a5?w=300&auto=format&fit=crop&q=70"
+    },
+    {
+      "id": 12,
+      "name": "نسكافية",
+      "price": 30,
+      "desc": "",
+      "icon": "☕️",
+      "cat": "hot"
+    },
+    {
+      "id": 13,
+      "name": "نعناع",
+      "price": 30,
+      "desc": "",
+      "icon": "",
+      "cat": "hot"
+    },
+    {
+      "id": 14,
+      "name": "كركدية",
+      "price": 35,
+      "desc": "",
+      "icon": "",
+      "cat": "hot"
+    },
+    {
+      "id": 15,
+      "name": "اندومي",
+      "price": 30,
+      "desc": "",
+      "icon": "🍜",
+      "cat": "noodles"
+    },
+    {
+      "id": 16,
+      "name": "كرت واي فاي",
+      "price": 10,
+      "desc": "",
+      "icon": "🛜",
+      "cat": "wifi"
     }
   ]
 }
