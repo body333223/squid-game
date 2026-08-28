@@ -732,11 +732,13 @@ function renderMenu(){
       <div class="item-icon">${iconHTML(it.icon)}</div>
       <div class="item-body">
         <div class="item-head">
-          <div class="item-name">${it.name}</div>
-          ${catName?`<span class="item-tag">${catName}</span>`:''}
+          <div style="display:flex; align-items:center; gap:6px; min-width:0;">
+            <span class="item-name">${it.name}</span>
+            ${catName?`<span class="item-tag">${catName}</span>`:''}
+          </div>
+          <span class="item-price">${it.price} <small>ج.م</small></span>
         </div>
-        <div class="item-desc">${it.desc||'منتج عالي الجودة'}</div>
-        <div class="item-price">${it.price} <small>ج.م</small></div>
+        <div class="item-desc" style="margin-bottom:0; min-height:auto; margin-top:4px;">${it.desc||'منتج عالي الجودة'}</div>
       </div>`;
     grid.appendChild(card);
   });
