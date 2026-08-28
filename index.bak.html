@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQUAD CAFE | سكوود كافيه</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0a0c;
+      --card-bg: #141419;
+      --card-border: rgba(255, 30, 60, 0.2);
+      --red-primary: #ff1e3c;
+      --red-glow: #ff0033;
+      --text-main: #f5f5f7;
+      --text-muted: #8e8e93;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      padding-bottom: 90px;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(180deg, #180507 0%, var(--bg-dark) 100%);
+      padding: 24px 20px 16px;
+      border-bottom: 1px solid var(--card-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .brand-title {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title span {
+      color: var(--red-primary);
+      text-shadow: 0 0 12px rgba(255, 30, 60, 0.6);
+    }
+
+    .admin-toggle-btn {
+      background: rgba(255, 30, 60, 0.12);
+      border: 1px solid var(--red-primary);
+      color: var(--red-primary);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .admin-toggle-btn.active {
+      background: var(--red-primary);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(255, 30, 60, 0.5);
+    }
+
+    /* Search Box */
+    .search-box {
+      position: relative;
+      margin-bottom: 14px;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid #282830;
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--red-primary);
+      box-shadow: 0 0 10px rgba(255, 30, 60, 0.2);
+    }
+
+    /* Categories Horizontal Scroll */
+    .categories-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .categories-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-btn {
+      background: #191920;
+      border: 1px solid #2c2c36;
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .cat-btn.active {
+      background: var(--red-primary);
+      color: #fff;
+      border-color: var(--red-primary);
+      box-shadow: 0 2px 10px rgba(255, 30, 60, 0.4);
+    }
+
+    /* Menu Container */
+    .menu-container {
+      padding: 20px 16px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .menu-card {
+      background: var(--card-bg);
+      border: 1px solid #24242e;
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .menu-card:hover {
+      border-color: rgba(255, 30, 60, 0.4);
+    }
+
+    .item-icon {
+      width: 68px;
+      height: 68px;
+      background: #20202a;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      flex-shrink: 0;
+      border: 1px solid #2e2e3a;
+    }
+
+    .item-details {
+      flex-grow: 1;
+    }
+
+    .item-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .item-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .item-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .item-price {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--red-primary);
+    }
+
+    .item-price span {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-right: 2px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .add-btn {
+      background: #20202a;
+      border: 1px solid #333342;
+      color: #fff;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .add-btn:active {
+      background: var(--red-primary);
+      transform: scale(0.92);
+    }
+
+    .edit-btn {
+      display: none;
+      background: #ffb703;
+      color: #000;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    body.admin-mode .edit-btn {
+      display: inline-block;
+    }
+
+    body.admin-mode .add-btn {
+      display: none;
+    }
+
+    /* Floating Cart Bar */
+    .cart-bar {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      background: #1b1b22;
+      border: 1px solid var(--red-primary);
+      border-radius: 16px;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6), 0 0 15px rgba(255, 30, 60, 0.3);
+      z-index: 100;
+    }
+
+    .cart-info {
+      font-size: 14px;
+    }
+
+    .cart-count {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .cart-total {
+      color: #fff;
+      font-weight: 900;
+      font-size: 16px;
+    }
+
+    .cart-total span {
+      color: var(--red-primary);
+    }
+
+    .checkout-btn {
+      background: var(--red-primary);
+      border: none;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* Modal for Quick Edit */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 200;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--card-bg);
+      border: 1px solid var(--red-primary);
+      border-radius: 16px;
+      padding: 20px;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .modal h3 {
+      font-size: 18px;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+
+    .modal input {
+      width: 100%;
+      background: #0d0d11;
+      border: 1px solid #333342;
+      color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .modal-btns {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .btn-save {
+      background: var(--red-primary);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-cancel {
+      background: #2b2b36;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="top-bar">
+      <div class="brand-title">SQUAD <span>CAFE</span></div>
+      <button class="admin-toggle-btn" id="adminToggle" onclick="toggleAdmin()">
+        ⚙️ وضع الإدارة
+      </button>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="ابحث عن مشروب (شاي، قهوة، موهيتو...)" oninput="renderMenu()">
+    </div>
+
+    <div class="categories-bar">
+      <button class="cat-btn active" onclick="filterCategory('all', this)">الكل</button>
+      <button class="cat-btn" onclick="filterCategory('hot', this)">☕ مشروبات ساخنة</button>
+      <button class="cat-btn" onclick="filterCategory('coffee', this)">🖤 قهوة وإسبريسو</button>
+      <button class="cat-btn" onclick="filterCategory('fresh', this)">🥭 عصائر طبيعية</button>
+      <button class="cat-btn" onclick="filterCategory('cold', this)">🧊 بارد وموهيتو</button>
+    </div>
+  </header>
+
+  <main class="menu-container" id="menuList"></main>
+
+  <!-- Cart Bar -->
+  <div class="cart-bar" id="cartBar" style="display: none;">
+    <div class="cart-info">
+      <div class="cart-count" id="cartCount">0 أصناف مختارة</div>
+      <div class="cart-total">الإجمالي: <span id="cartTotal">0</span> ج.م</div>
+    </div>
+    <button class="checkout-btn" onclick="sendOrderWhatsApp()">إتمام الطلب 💬</button>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal">
+      <h3>تعديل الصنف</h3>
+      <label style="font-size: 12px; color: var(--text-muted);">اسم الصنف:</label>
+      <input type="text" id="editName">
+      <label style="font-size: 12px; color: var(--text-muted);">السعر (ج.م):</label>
+      <input type="number" id="editPrice">
+      <label style="font-size: 12px; color: var(--text-muted);">الوصف:</label>
+      <input type="text" id="editDesc">
+      <div class="modal-btns">
+        <button class="btn-cancel" onclick="closeEditModal()">إلغاء</button>
+        <button class="btn-save" onclick="saveItemEdit()">حفظ التعديل</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Local Data
+    const defaultMenu = [
+      { id: 1, name: "شاي سكوود مكرر", cat: "hot", price: 15, desc: "شاي أحمر على البخار (نعناع / قرنفل / حبق)", icon: "🍵" },
+      { id: 2, name: "قهوة تركي محوجة", cat: "coffee", price: 25, desc: "بن برازيلي ممتاز بالهيل والزعفران على الرمالة", icon: "☕" },
+      { id: 3, name: "إسبريسو دوبل (Double Shot)", cat: "coffee", price: 30, desc: "شوت إسبريسو نقي وقوي برغوة غنية", icon: "⚡" },
+      { id: 4, name: "عصير مانجو فريش بيور", cat: "fresh", price: 40, desc: "قطع مانجو طبيعية 100% بدون إضافات", icon: "🥭" },
+      { id: 5, name: "ليمون نعناع فريش مثلج", cat: "fresh", price: 30, desc: "عصير ليمون طبيعي مع ورق نعناع طازج وثلج", icon: "🍋" },
+      { id: 6, name: "آيس سبانش لاتيه (Spanish)", cat: "cold", price: 50, desc: "دبل شوت إسبريسو مع حليب مكثف وثلج", icon: "🧋" },
+      { id: 7, name: "موهيتو توت وبلو أوشن", cat: "cold", price: 45, desc: "سفن أب مع سيرب التوت الأزرق، نعناع وليمون", icon: "🫐" }
+    ];
+
+    let menu = JSON.parse(localStorage.getItem('squad_cafe_menu')) || defaultMenu;
+    let currentCategory = 'all';
+    let editItemId = null;
+    let cart = [];
+
+    function renderMenu() {
+      const container = document.getElementById('menuList');
+      const search = document.getElementById('searchInput').value.trim().toLowerCase();
+      container.innerHTML = '';
+
+      const filtered = menu.filter(item => {
+        const matchCat = currentCategory === 'all' || item.cat === currentCategory;
+        const matchSearch = item.name.toLowerCase().includes(search) || item.desc.toLowerCase().includes(search);
+        return matchCat && matchSearch;
+      });
+
+      filtered.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'menu-card';
+        card.innerHTML = `
+          <div class="item-icon">${item.icon}</div>
+          <div class="item-details">
+            <div class="item-title">${item.name}</div>
+            <div class="item-desc">${item.desc}</div>
+            <div class="item-bottom">
+              <div class="item-price">${item.price} <span>ج.م</span></div>
+              <div class="card-actions">
+                <button class="edit-btn" onclick="openEditModal(${item.id})">✏️ تعديل</button>
+                <button class="add-btn" onclick="addToCart(${item.id})">＋</button>
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderMenu();
+    }
+
+    function toggleAdmin() {
+      document.body.classList.toggle('admin-mode');
+      const btn = document.getElementById('adminToggle');
+      btn.classList.toggle('active');
+      if (document.body.classList.contains('admin-mode')) {
+        btn.innerHTML = '✅ وضع الزبون';
+      } else {
+        btn.innerHTML = '⚙️ وضع الإدارة';
+      }
+    }
+
+    function openEditModal(id) {
+      editItemId = id;
+      const item = menu.find(i => i.id === id);
+      if (!item) return;
+      document.getElementById('editName').value = item.name;
+      document.getElementById('editPrice').value = item.price;
+      document.getElementById('editDesc').value = item.desc;
+      document.getElementById('editModal').classList.add('show');
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModal').classList.remove('show');
+    }
+
+    function saveItemEdit() {
+      const name = document.getElementById('editName').value;
+      const price = parseFloat(document.getElementById('editPrice').value);
+      const desc = document.getElementById('editDesc').value;
+
+      if (!name || isNaN(price)) {
+        alert('يرجى التأكد من كتابة الاسم والسعر بشكل صحيح');
+        return;
+      }
+
+      menu = menu.map(item => {
+        if (item.id === editItemId) {
+          return { ...item, name, price, desc };
+        }
+        return item;
+      });
+
+      localStorage.setItem('squad_cafe_menu', JSON.stringify(menu));
+      closeEditModal();
+      renderMenu();
+      updateCartDisplay();
+    }
+
+    function addToCart(id) {
+      const item = menu.find(i => i.id === id);
+      if (item) {
+        cart.push(item);
+        updateCartDisplay();
+      }
+    }
+
+    function updateCartDisplay() {
+      const cartBar = document.getElementById('cartBar');
+      if (cart.length === 0) {
+        cartBar.style.display = 'none';
+        return;
+      }
+      cartBar.style.display = 'flex';
+      document.getElementById('cartCount').textContent = `${cart.length} أصناف في السلة`;
+      const total = cart.reduce((sum, i) => sum + i.price, 0);
+      document.getElementById('cartTotal').textContent = total;
+    }
+
+    function sendOrderWhatsApp() {
+      if (cart.length === 0) return;
+      let msg = "طلب جديد من سكوود كافيه:%0A";
+      cart.forEach((item, idx) => {
+        msg += `${idx + 1}. ${item.name} - ${item.price} ج.م%0A`;
+      });
+      const total = cart.reduce((sum, i) => sum + i.price, 0);
+      msg += `%0Aالإجمالي: ${total} ج.م`;
+      window.open(`https://wa.me/?text=${msg}`, '_blank');
+    }
+
+    // Initial render
+    renderMenu();
+  </script>
+</body>
+</html>
