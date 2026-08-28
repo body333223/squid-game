@@ -1,17 +1,37 @@
 {
   "categories": [
-    {"id":"hot",    "name":"مشروبات ساخنة",  "icon":"☕"},
-    {"id":"coffee", "name":"قهوة وإسبريسو",  "icon":"🖤"},
-    {"id":"fresh",  "name":"عصائر طبيعية",   "icon":"🥭"},
-    {"id":"cold",   "name":"بارد وموهيتو",   "icon":"🧊"},
-    {"id":"shisha", "name":"شيشة فاخرة",     "icon":"💨"}
+    {
+      "id": "hot",
+      "name": "مشروبات ساخنة",
+      "icon": "☕"
+    },
+    {
+      "id": "coffee",
+      "name": "قهوة وإسبريسو",
+      "icon": "🖤"
+    },
+    {
+      "id": "fresh",
+      "name": "عصائر طبيعية",
+      "icon": "🥭"
+    },
+    {
+      "id": "cold",
+      "name": "بارد وموهيتو",
+      "icon": "🧊"
+    },
+    {
+      "id": "shisha",
+      "name": "شيشة فاخرة",
+      "icon": "💨"
+    }
   ],
   "menu": [
     {
       "id": 1,
       "name": "شاي سكوود مكرر",
       "cat": "hot",
-      "price": 15,
+      "price": 20,
       "desc": "شاي أحمر على البخار – نعناع / قرنفل / حبق",
       "icon": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300&auto=format&fit=crop&q=70"
     },
