@@ -897,6 +897,7 @@ function saveItem(){
   SS.set('sq_menu',JSON.stringify(menu));
   SS.set('sq_dirty','1');
   closeModal('itemModal');renderAdmItems();renderMenu();
+  autoSync();
 }
 
 function deleteItem(id){
@@ -906,6 +907,7 @@ function deleteItem(id){
     SS.set('sq_menu',JSON.stringify(menu));
     SS.set('sq_dirty','1');
     renderAdmItems();renderMenu();toast('تم الحذف','ok');
+    autoSync();
   });
 }
 
@@ -962,6 +964,7 @@ function saveCat(){
   SS.set('sq_cats',JSON.stringify(cats));
   SS.set('sq_dirty','1');
   closeModal('catModal');renderAdmCats();renderCatBar();renderMenu();
+  autoSync();
 }
 
 function deleteCat(key){
@@ -975,6 +978,7 @@ function deleteCat(key){
     SS.set('sq_dirty','1');
     if(activeCat===key)activeCat='all';
     renderAdmCats();renderCatBar();renderMenu();toast('تم الحذف','ok');
+    autoSync();
   });
 }
 
@@ -985,6 +989,7 @@ function resetDefaults(){
     SS.set('sq_dirty','1');
     activeCat='all';renderCatBar();renderMenu();renderAdmItems();renderAdmCats();
     toast('تم الاستعادة ✔','ok');closePanel();
+    autoSync();
   });
 }
 
@@ -1024,6 +1029,80 @@ function updateDirtyWarning() {
       <div style="background: rgba(6,199,160,0.08); border: 1px solid rgba(6,199,160,0.25); color: var(--teal); padding: 12px; border-radius: 12px; font-size: 13px; display: flex; align-items: center; gap: 8px; direction: rtl;">
         <span>✅</span> <span>المنيو متزامن بالكامل مع السيرفر والإنترنت، والتعديلات ظاهرة لجميع الزبائن.</span>
       </div>`;
+  }
+}
+
+async function autoSync() {
+  const token = SS.get('gh_token');
+  if (!token) {
+    console.log("No GitHub token saved. Modifications are only saved locally.");
+    return;
+  }
+
+  // Visual feedback: show loading on admin button
+  const adminBtn = document.getElementById('adminBtn');
+  const oldText = adminBtn ? adminBtn.innerHTML : '⚙️ الإدارة';
+  if (adminBtn) adminBtn.innerHTML = '⏳ جاري الحفظ سحابياً...';
+
+  try {
+    const owner = 'body333223';
+    const repo = 'squid-game';
+    const path = 'data.json';
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+    // 1. Get current SHA
+    let sha = '';
+    const getRes = await fetch(url, {
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+    }
+
+    // 2. Prepare payload
+    const payload = {
+      categories: cats,
+      menu: menu
+    };
+    const jsonStr = JSON.stringify(payload, null, 2);
+    const base64Content = btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, (match, p1) => {
+      return String.fromCharCode('0x' + p1);
+    }));
+
+    // 3. Put request to update content
+    const putRes = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: 'Auto-sync database update via Admin Panel',
+        content: base64Content,
+        sha: sha
+      })
+    });
+
+    if (putRes.ok) {
+      SS.set('sq_dirty', '0');
+      updateDirtyWarning();
+      toast('تم الحفظ والمزامنة مع السيرفر للجميع! 🚀', 'ok');
+    } else {
+      const err = await putRes.json();
+      console.error(err);
+      toast('فشل الحفظ التلقائي على السيرفر (تحقق من الرمز)', 'err');
+    }
+  } catch (e) {
+    console.error(e);
+    toast('خطأ في الاتصال أثناء المزامنة السحابية', 'err');
+  } finally {
+    if (adminBtn) adminBtn.innerHTML = oldText;
   }
 }
 
