@@ -505,6 +505,7 @@
   <div class="adm-nav">
     <button class="tab-btn active" id="tabItems" onclick="switchTab('items')">📦 المنتجات</button>
     <button class="tab-btn"        id="tabCats"  onclick="switchTab('cats')">📁 الأصناف</button>
+    <button class="tab-btn"        id="tabCloud" onclick="switchTab('cloud')">☁️ نشر وتحديث</button>
   </div>
   <div class="adm-body">
     <!-- Products -->
@@ -522,6 +523,26 @@
         <button class="btn btn-primary" onclick="openCatForm(null)" style="padding:9px 15px;">＋ صنف جديد</button>
       </div>
       <div class="adm-list" id="admCatList"></div>
+    </div>
+    <!-- Cloud / Publishing -->
+    <div class="panel-sec" id="secCloud">
+      <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(229,23,123,0.22); border-radius: 18px; padding: 22px; margin-bottom: 24px;">
+        <h3 style="color: #fff; margin-bottom: 12px; font-size: 17px; display: flex; align-items: center; gap: 8px;">☁️ نشر التعديلات للجميع على الإنترنت</h3>
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 16px;">
+          بما أن المنيو يعمل على سيرفر GitHub Pages، فإن التعديلات التي تقوم بها محلياً تحتاج إلى نشرها لحسابك على GitHub لكي تظهر فوراً لجميع الزبائن على هواتفهم.
+        </p>
+
+        <label style="display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px;">رمز وصول GitHub (Personal Access Token - PAT)</label>
+        <input type="password" id="ghTokenInput" placeholder="ghp_••••••••••••••••••••" style="width: 100%; background: rgba(8,5,14,0.9); border: 1px solid rgba(229,23,123,0.22); color: var(--text); padding: 11px 14px; border-radius: 11px; font-size: 14px; outline: none; transition: border-color 0.3s; margin-bottom: 8px;" onchange="saveGhToken()">
+        
+        <p style="font-size: 11px; color: var(--muted); line-height: 1.5; margin-bottom: 18px;">
+          💡 <strong>كيف تحصل على الرمز؟</strong> افتح حسابك على GitHub ➔ Settings ➔ Developer Settings ➔ Personal Access Tokens ➔ Tokens (classic) وولد رمزاً جديداً بصلاحية <code>repo</code>.
+        </p>
+
+        <button class="btn btn-primary" id="btnPublish" onclick="publishToGitHub()" style="width: 100%; padding: 13px; font-size: 15px;">
+          🚀 نشر وتحديث المنيو الآن للزبائن
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -777,8 +798,18 @@ function switchTab(t){
   activeTab=t;
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.panel-sec').forEach(s=>s.classList.remove('active'));
-  if(t==='items'){document.getElementById('tabItems').classList.add('active');document.getElementById('secItems').classList.add('active');renderAdmItems();}
-  else           {document.getElementById('tabCats') .classList.add('active');document.getElementById('secCats') .classList.add('active');renderAdmCats();}
+  if(t==='items'){
+    document.getElementById('tabItems').classList.add('active');
+    document.getElementById('secItems').classList.add('active');
+    renderAdmItems();
+  } else if(t==='cats') {
+    document.getElementById('tabCats').classList.add('active');
+    document.getElementById('secCats').classList.add('active');
+    renderAdmCats();
+  } else {
+    document.getElementById('tabCloud').classList.add('active');
+    document.getElementById('secCloud').classList.add('active');
+  }
 }
 
 /* ---- Admin items ---- */
@@ -954,11 +985,121 @@ function confirm2(html,cb){
   document.getElementById('delConfirmBtn').onclick=()=>{cb();closeModal('delModal');};
 }
 
+/* ---------- GitHub Sync Functions ---------- */
+function saveGhToken() {
+  const t = document.getElementById('ghTokenInput').value.trim();
+  SS.set('gh_token', t);
+  toast('تم حفظ الرمز محلياً بأمان ✔', 'ok');
+}
+
+async function loadRemoteData() {
+  try {
+    const res = await fetch(`data.json?t=${Date.now()}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.categories && data.menu) {
+        cats = data.categories;
+        menu = data.menu;
+        SS.set('sq_cats', JSON.stringify(cats));
+        SS.set('sq_menu', JSON.stringify(menu));
+        return true;
+      }
+    }
+  } catch (e) {
+    console.error("Failed to load remote data, using local fallback.", e);
+  }
+  return false;
+}
+
+async function publishToGitHub() {
+  const token = SS.get('gh_token') || document.getElementById('ghTokenInput').value.trim();
+  if (!token) {
+    toast('يرجى إدخال رمز وصول GitHub أولاً', 'err');
+    return;
+  }
+
+  const btn = document.getElementById('btnPublish');
+  const oldText = btn.textContent;
+  btn.textContent = '⏳ جاري النشر والتحديث...';
+  btn.disabled = true;
+
+  try {
+    const owner = 'body333223';
+    const repo = 'squad-cafe';
+    const path = 'data.json';
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+    // 1. Get current file details to get the SHA
+    let sha = '';
+    const getRes = await fetch(url, {
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+    }
+
+    // 2. Prepare payload
+    const payload = {
+      categories: cats,
+      menu: menu
+    };
+    const jsonStr = JSON.stringify(payload, null, 2);
+    // Safe UTF-8 base64 encoding
+    const base64Content = btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, (match, p1) => {
+      return String.fromCharCode('0x' + p1);
+    }));
+
+    // 3. Put request to update content
+    const putRes = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: 'Update menu database via Admin Dashboard',
+        content: base64Content,
+        sha: sha
+      })
+    });
+
+    if (putRes.ok) {
+      toast('تم نشر وتحديث المنيو للجميع بنجاح! 🚀', 'ok');
+    } else {
+      const errData = await putRes.json();
+      console.error(errData);
+      toast(`فشل التحديث: ${errData.message || 'خطأ غير معروف'}`, 'err');
+    }
+  } catch (e) {
+    console.error(e);
+    toast('حدث خطأ أثناء الاتصال بـ GitHub', 'err');
+  } finally {
+    btn.textContent = oldText;
+    btn.disabled = false;
+  }
+}
+
 /* ---------- Init ---------- */
-document.addEventListener('DOMContentLoaded',()=>{
-  if(!SS.get('sq_cats')){SS.set('sq_cats',JSON.stringify(DEF_CATS));cats=DEF_CATS;}
-  if(!SS.get('sq_menu')){SS.set('sq_menu',JSON.stringify(DEF_MENU));menu=DEF_MENU;}
+document.addEventListener('DOMContentLoaded', async ()=>{
+  // Try loading from database file on server first
+  const loaded = await loadRemoteData();
+  if (!loaded) {
+    if (SS.get('sq_cats')) cats = JSON.parse(SS.get('sq_cats'));
+    if (SS.get('sq_menu')) menu = JSON.parse(SS.get('sq_menu'));
+  }
   renderCatBar();renderMenu();syncAdminUI();
+  
+  // Restore stored token input if exists
+  if (SS.get('gh_token')) {
+    const tokenInput = document.getElementById('ghTokenInput');
+    if (tokenInput) tokenInput.value = SS.get('gh_token');
+  }
 });
 </script>
 </body>
