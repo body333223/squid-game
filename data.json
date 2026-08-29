@@ -42,10 +42,10 @@
     },
     {
       "id": 2,
-      "name": "قهوة تركي محوجة",
+      "name": "قهوة تركي",
       "cat": "coffee",
-      "price": 25,
-      "desc": "بن برازيلي ممتاز بالهيل والزعفران على الرمالة",
+      "price": 30,
+      "desc": "بن برازيلي ممتاز",
       "icon": "https://images.unsplash.com/photo-1497515114629-f71d768fd07c?w=300&auto=format&fit=crop&q=70"
     },
     {
