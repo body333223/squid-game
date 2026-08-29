@@ -148,6 +148,14 @@
       "desc": "",
       "icon": "🥤",
       "cat": "icecola"
+    },
+    {
+      "id": 20,
+      "name": "مشروب طاقة استينج",
+      "price": 35,
+      "desc": "",
+      "icon": "🥤",
+      "cat": "icecola"
     }
   ]
 }
