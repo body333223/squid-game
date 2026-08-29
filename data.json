@@ -29,6 +29,11 @@
       "id": "wifi",
       "name": "Wi fi",
       "icon": "🛜"
+    },
+    {
+      "id": "icecola",
+      "name": "بيبسي",
+      "icon": "🥤"
     }
   ],
   "menu": [
