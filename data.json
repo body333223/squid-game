@@ -180,6 +180,14 @@
       "desc": "",
       "icon": "🥤",
       "cat": "icecola"
+    },
+    {
+      "id": 24,
+      "name": "شيشة ليمون نعناع",
+      "price": 50,
+      "desc": "",
+      "icon": "",
+      "cat": "shisha"
     }
   ]
 }
