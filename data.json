@@ -87,6 +87,14 @@
       "desc": "",
       "icon": "🍵",
       "cat": "hot"
+    },
+    {
+      "id": 8,
+      "name": "كركديه",
+      "price": 30,
+      "desc": "",
+      "icon": "🍵",
+      "cat": "hot"
     }
   ]
 }
