@@ -19,6 +19,11 @@
       "id": "shisha",
       "name": "شيشة",
       "icon": "💨"
+    },
+    {
+      "id": "icecola",
+      "name": "بيبسي",
+      "icon": "🥤"
     }
   ],
   "menu": [
