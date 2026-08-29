@@ -71,6 +71,14 @@
       "desc": "",
       "icon": "🥤",
       "cat": "icecola"
+    },
+    {
+      "id": 6,
+      "name": "شويبس ليمون نعناع",
+      "price": 35,
+      "desc": "",
+      "icon": "🥤",
+      "cat": "icecola"
     }
   ]
 }
