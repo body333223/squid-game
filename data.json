@@ -135,6 +135,14 @@
       "desc": "V كولا ليمون نعناع",
       "icon": "🥤",
       "cat": "icecola"
+    },
+    {
+      "id": 14,
+      "name": "فيروز اناناس",
+      "price": 35,
+      "desc": "",
+      "icon": "🥤",
+      "cat": "icecola"
     }
   ]
 }
