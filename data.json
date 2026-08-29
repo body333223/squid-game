@@ -124,6 +124,14 @@
       "desc": "",
       "icon": "🛜",
       "cat": "wifi"
+    },
+    {
+      "id": 17,
+      "name": "بيبسي",
+      "price": 35,
+      "desc": "",
+      "icon": "🥤",
+      "cat": "icecola"
     }
   ]
 }
