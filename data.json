@@ -24,6 +24,11 @@
       "id": "icecola",
       "name": "بيبسي",
       "icon": "🥤"
+    },
+    {
+      "id": "wifi",
+      "name": "كرت واي فاي",
+      "icon": "🛜"
     }
   ],
   "menu": [
