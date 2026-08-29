@@ -143,6 +143,14 @@
       "desc": "",
       "icon": "🥤",
       "cat": "icecola"
+    },
+    {
+      "id": 15,
+      "name": "بيبسي",
+      "price": 35,
+      "desc": "",
+      "icon": "🥤",
+      "cat": "icecola"
     }
   ]
 }
