@@ -175,6 +175,14 @@
       "desc": "",
       "icon": "🥤",
       "cat": "shisha"
+    },
+    {
+      "id": 19,
+      "name": "شيشة فواكة علكة نعناع",
+      "price": 50,
+      "desc": "",
+      "icon": "🥤",
+      "cat": "shisha"
     }
   ]
 }
