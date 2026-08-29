@@ -183,6 +183,14 @@
       "desc": "",
       "icon": "🥤",
       "cat": "shisha"
+    },
+    {
+      "id": 20,
+      "name": "شيشة فواكة كولا",
+      "price": 50,
+      "desc": "",
+      "icon": "🥤",
+      "cat": "shisha"
     }
   ]
 }
