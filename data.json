@@ -132,6 +132,14 @@
       "desc": "",
       "icon": "🥤",
       "cat": "icecola"
+    },
+    {
+      "id": 18,
+      "name": "مشروب طاقة فيوري",
+      "price": 35,
+      "desc": "",
+      "icon": "🥤",
+      "cat": "icecola"
     }
   ]
 }
