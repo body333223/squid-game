@@ -151,6 +151,14 @@
       "desc": "",
       "icon": "🥤",
       "cat": "icecola"
+    },
+    {
+      "id": 16,
+      "name": "شيشة فواكة مانجو",
+      "price": 50,
+      "desc": "",
+      "icon": "🥤",
+      "cat": "shisha"
     }
   ]
 }
