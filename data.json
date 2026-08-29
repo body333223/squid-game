@@ -55,6 +55,14 @@
       "desc": "",
       "icon": "🥤",
       "cat": "hot"
+    },
+    {
+      "id": 4,
+      "name": "كرت واي فاي",
+      "price": 10,
+      "desc": "",
+      "icon": "🛜",
+      "cat": "wifi"
     }
   ]
 }
