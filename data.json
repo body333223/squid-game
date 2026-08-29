@@ -159,6 +159,14 @@
       "desc": "",
       "icon": "🥤",
       "cat": "shisha"
+    },
+    {
+      "id": 17,
+      "name": "شيشة فواكة كريز",
+      "price": 50,
+      "desc": "",
+      "icon": "🥤",
+      "cat": "shisha"
     }
   ]
 }
