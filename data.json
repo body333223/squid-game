@@ -79,6 +79,14 @@
       "desc": "",
       "icon": "🥤",
       "cat": "icecola"
+    },
+    {
+      "id": 7,
+      "name": "يانسون",
+      "price": 30,
+      "desc": "",
+      "icon": "🍵",
+      "cat": "hot"
     }
   ]
 }
