@@ -63,6 +63,14 @@
       "desc": "",
       "icon": "🛜",
       "cat": "wifi"
+    },
+    {
+      "id": 5,
+      "name": "شويبس رمان",
+      "price": 35,
+      "desc": "",
+      "icon": "🥤",
+      "cat": "icecola"
     }
   ]
 }
