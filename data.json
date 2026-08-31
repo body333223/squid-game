@@ -191,6 +191,14 @@
       "desc": "",
       "icon": "🥤",
       "cat": "shisha"
+    },
+    {
+      "id": 21,
+      "name": "عصير ليمون",
+      "price": 40,
+      "desc": "",
+      "icon": "🍸",
+      "cat": "fresh"
     }
   ]
 }
